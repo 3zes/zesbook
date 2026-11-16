@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transmission intergénérationnelle – Nation & Culture</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background-color: #f7f7f7;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1a1a1a;
+      font-size: 1.8rem;
+      margin: 1rem 0;
+    }
+
+    .selector {
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .selector label {
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+
+    .selector select {
+      padding: 0.5rem;
+      margin: 0 0.5rem;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .content {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      max-width: 800px;
+      margin: 1rem auto;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      line-height: 1.8;
+    }
+
+    .content h2 {
+      color: #2c3e50;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 0.3rem;
+      margin-top: 0;
+    }
+
+    .content ul {
+      padding-left: 1.5rem;
+    }
+
+    .info-message {
+      text-align: center;
+      color: #0056b3;
+      background-color: #e8f4ff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      max-width: 800px;
+      margin: 1rem auto;
+      border: 1px solid #c0e2ff;
+      font-style: italic;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      line-height: 1.5;
+    }
+
+    .info-message svg {
+      flex-shrink: 0;
+    }
+
+    @media screen and (max-width: 600px) {
+      body {
+        padding: 0.5rem;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      .content,
+      .info-message {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>De peuple à nation : pourquoi la transmission est essentielle</h1>
+
+  <div class="selector">
+    <label for="ageSelect">Je suis :</label>
+    <select id="ageSelect">
+      <option value="">-- Choisissez l'âge --</option>
+      <option value="enfant">Un enfant</option>
+      <option value="adulte">Un adulte ou ado</option>
+      <option value="academicien">Un académicien</option>
+      <option value="mathematicien">Un mathématicien</option>
+    </select>
+
+    <label for="continentSelect">Je vis en :</label>
+    <select id="continentSelect" disabled>
+      <option value="">-- Choisissez votre continent --</option>
+      <option value="afrique">Afrique</option>
+      <option value="europe">Europe</option>
+      <option value="ameriques">Amériques</option>
+      <option value="asie">Asie</option>
+      <option value="oceanie">Océanie</option>
+    </select>
+  </div>
+
+  <!-- Contenu dynamique -->
+  <div id="contentContainer"></div>
+
+  <script>
+    const ageSelect = document.getElementById('ageSelect');
+    const continentSelect = document.getElementById('continentSelect');
+    const contentContainer = document.getElementById('contentContainer');
+
+    // Exemples culturels par continent
+    const exemples = {
+      afrique: {
+        academicien: "comme les travaux de l’historien Cheikh Anta Diop ou les études contemporaines sur les manuscrits de Tombouctou",
+        mathematicien: "comme les motifs symétriques du kente ou les systèmes de calcul traditionnels des peuples Yoruba"
+      },
+      europe: {
+        academicien: "comme les publications de l’Académie des sciences ou les revues universitaires européennes telles que <em>Nature</em> ou <em>Science</em>",
+        mathematicien: "comme la rigueur axiomatique de Bourbaki ou les démonstrations de Gödel et Turing"
+      },
+      ameriques: {
+        academicien: "comme les recherches de l’Académie nationale des sciences américaine ou les études ethnographiques des peuples autochtones par des universitaires autochtones",
+        mathematicien: "comme les modèles mathématiques des cycles calendaires mayas ou la géométrie des motifs navajo"
+      },
+      asie: {
+        academicien: "comme les revues scientifiques de pointe de Tokyo, Pékin ou Bangalore, ou les travaux en intelligence artificielle émanant des laboratoires asiatiques",
+        mathematicien: "comme les preuves formelles issues de la logique bouddhiste ou les algorithmes anciens du <em>Suàn shù shū</em> chinois"
+      },
+      oceanie: {
+        academicien: "comme les recherches menées par des universitaires māori sur le <em>mātauranga Māori</em>, intégrant savoirs traditionnels et méthodologie scientifique",
+        mathematicien: "comme les calculs de navigation stellaire des Polynésiens, véritable géométrie sphérique empirique"
+      }
+    };
+
+    // Contenus par profil
+    const contentMap = {
+      enfant: {
+        afrique: () => `
+          <div class="content">
+            <h2>Comment un groupe d’enfants devient une grande famille qui dure ? (Afrique)</h2>
+            <p>Imagine que tu fais partie d’un grand jeu qui dure depuis très, très longtemps. Tu n’as jamais rencontré les enfants qui ont joué il y a 100 ans. Pourtant, <strong>tu connais les règles</strong>, tu chantes les mêmes chansons, tu racontes les mêmes histoires. Et un jour, tes petits-enfants joueront aussi à ce jeu.</p>
+            <p>C’est ça, une <strong>nation</strong> : un grand jeu qui se transmet de génération en génération.</p>
+            <p>Dans ton pays, les grands-parents racontent des histoires autour du feu — comme celles de Soundiata ou de Kirikou. Ces récits t’apprennent qui tu es, d’où tu viens.</p>
+            <p>Quand tu écoutes, tu deviens un maillon de la chaîne. Et grâce à toi, le jeu ne s’arrête jamais.</p>
+          </div>
+        `,
+        europe: () => `
+          <div class="content">
+            <h2>Comment un groupe d’enfants devient une grande famille qui dure ? (Europe)</h2>
+            <p>Imagine que tu fais partie d’un grand jeu qui dure depuis très, très longtemps. Tu n’as jamais rencontré les enfants qui ont joué il y a 100 ans. Pourtant, <strong>tu connais les règles</strong>, tu chantes les mêmes chansons, tu racontes les mêmes histoires. Et un jour, tes petits-enfants joueront aussi à ce jeu.</p>
+            <p>C’est ça, une <strong>nation</strong> : un grand jeu qui se transmet de génération en génération.</p>
+            <p>En Europe, on apprend l’histoire à l’école : celle des chevaliers, des rois, des révolutions. Ces histoires nous disent pourquoi on vit comme on vit aujourd’hui.</p>
+            <p>Chaque fois que tu racontes une de ces histoires à un ami, tu deviens un maillon de la chaîne. Et grâce à toi, le jeu continue.</p>
+          </div>
+        `,
+        ameriques: () => `
+          <div class="content">
+            <h2>Comment un groupe d’enfants devient une grande famille qui dure ? (Amériques)</h2>
+            <p>Imagine que tu fais partie d’un grand jeu qui dure depuis très, très longtemps. Tu n’as jamais rencontré les enfants qui ont joué il y a 100 ans. Pourtant, <strong>tu connais les règles</strong>, tu chantes les mêmes chansons, tu racontes les mêmes histoires. Et un jour, tes petits-enfants joueront aussi à ce jeu.</p>
+            <p>C’est ça, une <strong>nation</strong> : un grand jeu qui se transmet de génération en génération.</p>
+            <p>Chez les Premières Nations, on transmet les savoirs avec des chants, des danses, des légendes. Ces récits parlent de la Terre, des animaux, des ancêtres.</p>
+            <p>Quand tu écoutes, tu entends la voix de ceux qui sont venus avant toi. Et tu deviens un gardien de la chaîne.</p>
+          </div>
+        `,
+        asie: () => `
+          <div class="content">
+            <h2>Comment un groupe d’enfants devient une grande famille qui dure ? (Asie)</h2>
+            <p>Imagine que tu fais partie d’un grand jeu qui dure depuis très, très longtemps. Tu n’as jamais rencontré les enfants qui ont joué il y a 100 ans. Pourtant, <strong>tu connais les règles</strong>, tu chantes les mêmes chansons, tu racontes les mêmes histoires. Et un jour, tes petits-enfants joueront aussi à ce jeu.</p>
+            <p>C’est ça, une <strong>nation</strong> : un grand jeu qui se transmet de génération en génération.</p>
+            <p>En Asie, on raconte des légendes de dragons, de sages, de samouraïs. Ces contes expliquent pourquoi on respecte certaines traditions.</p>
+            <p>Chaque histoire est une graine plantée dans ton cœur. Et un jour, tu la transmettras à ton tour.</p>
+          </div>
+        `,
+        oceanie: () => `
+          <div class="content">
+            <h2>Comment un groupe d’enfants devient une grande famille qui dure ? (Océanie)</h2>
+            <p>Imagine que tu fais partie d’un grand jeu qui dure depuis très, très longtemps. Tu n’as jamais rencontré les enfants qui ont joué il y a 100 ans. Pourtant, <strong>tu connais les règles</strong>, tu chantes les mêmes chansons, tu racontes les mêmes histoires. Et un jour, tes petits-enfants joueront aussi à ce jeu.</p>
+            <p>C’est ça, une <strong>nation</strong> : un grand jeu qui se transmet de génération en génération.</p>
+            <p>Chez les Aborigènes, on parle du « Temps du Rêve » : un monde ancien raconté par les anciens. Chaque rivière, chaque rocher a une histoire.</p>
+            <p>Quand tu écoutes, tu apprends à respecter la Terre. Et tu deviens un gardien de la mémoire.</p>
+          </div>
+        `
+      },
+      adulte: {
+        afrique: () => `
+          <div class="content">
+            <h2>Et si la nation, c’était ce que nos parents nous ont transmis ? (Afrique)</h2>
+            <p>En Afrique, la transmission passe par l’oralité : contes, proverbes, généalogies. Ce n’est pas du folklore — c’est la mémoire vivante d’un peuple.</p>
+            <p>Quand un grand-père raconte l’histoire de Soundiata, il ne fait pas que divertir : il fonde une identité. Il dit : <em>« Nous sommes ceux qui ont résisté, construit, rêvé. »</em></p>
+            <p>C’est cette chaîne, de bouche à oreille, qui fait d’un peuple une nation. Sans elle, même un État fort devient vide.</p>
+            <p>Aujourd’hui, entre migrations, écrans et oubli, cette transmission est menacée. Mais elle reste notre racine.</p>
+          </div>
+        `,
+        europe: () => `
+          <div class="content">
+            <h2>Et si la nation, c’était ce que nos parents nous ont transmis ? (Europe)</h2>
+            <p>En Europe, la nation s’est construite autour de l’école, de l’histoire nationale, des rituels civiques. La transmission y est institutionnalisée.</p>
+            <p>Mais aujourd’hui, les jeunes doutent. Les récits sont remis en question. Les diasporas demandent une mémoire plus inclusive.</p>
+            <p>La nation ne peut survivre si elle se fige. Elle doit se réinventer — tout en gardant sa mémoire. C’est un équilibre fragile.</p>
+            <p>Chaque fois qu’un parent raconte d’où il vient, qu’un enfant visite un musée, la chaîne se renforce.</p>
+          </div>
+        `,
+        ameriques: () => `
+          <div class="content">
+            <h2>Et si la nation, c’était ce que nos parents nous ont transmis ? (Amériques)</h2>
+            <p>Pour les peuples autochtones des Amériques, la transmission passe par les cercles de parole, les cérémonies, les chants.</p>
+            <p>Après des siècles de suppression, cette transmission est un acte de résistance. Elle dit : <em>« Nous sommes toujours là. »</em></p>
+            <p>La nation, ici, ne vient pas de l’État, mais du lien à la Terre et aux ancêtres. C’est une nation fondée sur la mémoire, pas sur le pouvoir.</p>
+            <p>Et quand un jeune apprend sa langue, c’est une victoire.</p>
+          </div>
+        `,
+        asie: () => `
+          <div class="content">
+            <h2>Et si la nation, c’était ce que nos parents nous ont transmis ? (Asie)</h2>
+            <p>Dans plusieurs sociétés asiatiques, la famille et la lignée structurent la transmission. Le respect des aînés, la mémoire des ancêtres, le devoir de perpétuer.</p>
+            <p>La nation s’y pense souvent comme une grande famille. Elle ne se définit pas seulement par des frontières, mais par une continuité culturelle.</p>
+            <p>Aujourd’hui, la mondialisation bouscule ces liens. Mais la transmission reste un pilier — entre tradition et modernité.</p>
+          </div>
+        `,
+        oceanie: () => `
+          <div class="content">
+            <h2>Et si la nation, c’était ce que nos parents nous ont transmis ? (Océanie)</h2>
+            <p>Les peuples d’Océanie, notamment les Aborigènes, transmettent leur identité par les chants, les tracés sacrés, les récits du « Dreamtime ».</p>
+            <p>Leur nation n’est pas définie par un drapeau, mais par un lien sacré à la Terre, transmis depuis des milliers d’années.</p>
+            <p>C’est une nation enracinée dans l’espace et le temps — une mémoire vivante, orale, cosmique.</p>
+            <p>Et tant qu’un enfant écoutera ces récits, cette nation existera.</p>
+          </div>
+        `
+      },
+      academicien: {
+        afrique: () => `
+          <div class="content">
+            <h2>La transmission intergénérationnelle comme fondement socio-anthropologique de la nation</h2>
+            <p><strong>Résumé</strong><br>Dans une perspective socio-anthropologique, la nation ne saurait se réduire à une entité juridique ou territoriale. Elle se constitue comme une communauté historique et symbolique, continuellement (re)produite à travers des mécanismes de transmission intergénérationnelle. Ce processus est à la fois condition de possibilité de l’existence de la nation et moteur de sa pérennité.</p>
+            <p><strong>Introduction</strong><br>Alors que les sciences politiques tendent à définir la nation à partir de critères juridiques, territoriaux ou linguistiques, l’approche socio-anthropologique privilégie une compréhension plus organique et dynamique. Elle conçoit la nation comme une <strong>construction sociale à travers le temps</strong>, ancrée dans une continuité symbolique.</p>
+            <p><strong>1. La nation comme communauté historico-symbolique</strong><br>Benedict Anderson (<em>Imagined Communities</em>, 1983) décrit la nation comme une "communauté imaginée". Cette reconnaissance repose sur des symboles partagés, une mémoire commune, et une langue. Or, ces éléments n’existent que s’ils sont transmis — comme les travaux de Cheikh Anta Diop ou les manuscrits de Tombouctou.</p>
+            <p><strong>2. Le rôle de la transmission</strong><br>La transmission prend diverses formes : langue, rites, valeurs, mémoire. Elle socialise les individus au sein du groupe national. C’est ce qui rend la nation vivante.</p>
+            <p><strong>3. Peuple vs Nation</strong><br>Un peuple existe dans le présent. Une nation s’étend dans le temps. Elle relie les générations passées, présentes et futures.</p>
+            <p><strong>4. Fragilité sans transmission</strong><br>Quand les mécanismes de transmission se brisent (migrations, acculturation), la nation s’effrite. À l’inverse, les diasporas juive ou arménienne montrent qu’une nation peut exister sans État, grâce à la transmission.</p>
+            <p><strong>Conclusion</strong><br>La transmission n’est pas un outil de conservation : c’est l’acte fondateur de la nation. Elle inscrit un peuple dans la durée.</p>
+            <p><strong>Références complémentaires</strong><br>
+            • Anderson, B. (1983). <em>Imagined Communities</em><br>
+            • Hobsbawm, E. & Ranger, T. (1983). <em>The Invention of Tradition</em><br>
+            • Halbwachs, M. (1950). <em>La Mémoire collective</em><br>
+            • Assmann, J. (1992). <em>Das kulturelle Gedächtnis</em><br>
+            • Renan, E. (1882). <em>Qu’est-ce qu’une nation ?</em>
+            </p>
+          </div>
+        `,
+        europe: () => `
+          <div class="content">
+            <h2>La transmission intergénérationnelle comme fondement socio-anthropologique de la nation</h2>
+            <p><strong>Résumé</strong><br>Dans une perspective socio-anthropologique, la nation ne saurait se réduire à une entité juridique ou territoriale. Elle se constitue comme une communauté historique et symbolique, continuellement (re)produite à travers des mécanismes de transmission intergénérationnelle. Ce processus est à la fois condition de possibilité de l’existence de la nation et moteur de sa pérennité.</p>
+            <p><strong>Introduction</strong><br>Alors que les sciences politiques tendent à définir la nation à partir de critères juridiques, territoriaux ou linguistiques, l’approche socio-anthropologique privilégie une compréhension plus organique et dynamique. Elle conçoit la nation comme une <strong>construction sociale à travers le temps</strong>, ancrée dans une continuité symbolique.</p>
+            <p><strong>1. La nation comme communauté historico-symbolique</strong><br>Benedict Anderson (<em>Imagined Communities</em>, 1983) décrit la nation comme une "communauté imaginée". Cette reconnaissance repose sur des symboles partagés, une mémoire commune, et une langue. Or, ces éléments n’existent que s’ils sont transmis — comme dans les revues <em>Nature</em> ou <em>Science</em>.</p>
+            <p><strong>2. Le rôle de la transmission</strong><br>La transmission prend diverses formes : langue, rites, valeurs, mémoire. Elle socialise les individus au sein du groupe national. C’est ce qui rend la nation vivante.</p>
+            <p><strong>3. Peuple vs Nation</strong><br>Un peuple existe dans le présent. Une nation s’étend dans le temps. Elle relie les générations passées, présentes et futures.</p>
+            <p><strong>4. Fragilité sans transmission</strong><br>Quand les mécanismes de transmission se brisent (migrations, acculturation), la nation s’effrite. À l’inverse, les diasporas juive ou arménienne montrent qu’une nation peut exister sans État, grâce à la transmission.</p>
+            <p><strong>Conclusion</strong><br>La transmission n’est pas un outil de conservation : c’est l’acte fondateur de la nation. Elle inscrit un peuple dans la durée.</p>
+            <p><strong>Références complémentaires</strong><br>
+            • Anderson, B. (1983). <em>Imagined Communities</em><br>
+            • Gellner, E. (1983). <em>Nations and Nationalism</em><br>
+            • Billig, M. (1995). <em>Banal Nationalism</em><br>
+            • Bourdieu, P. (1979). <em>La Distinction</em><br>
+            • Renan, E. (1882). <em>Qu’est-ce qu’une nation ?</em>
+            </p>
+          </div>
+        `,
+        ameriques: () => `
+          <div class="content">
+            <h2>La transmission intergénérationnelle comme fondement socio-anthropologique de la nation</h2>
+            <p><strong>Résumé</strong><br>Dans une perspective socio-anthropologique, la nation ne saurait se réduire à une entité juridique ou territoriale. Elle se constitue comme une communauté historique et symbolique, continuellement (re)produite à travers des mécanismes de transmission intergénérationnelle. Ce processus est à la fois condition de possibilité de l’existence de la nation et moteur de sa pérennité.</p>
+            <p><strong>Introduction</strong><br>Alors que les sciences politiques tendent à définir la nation à partir de critères juridiques, territoriaux ou linguistiques, l’approche socio-anthropologique privilégie une compréhension plus organique et dynamique. Elle conçoit la nation comme une <strong>construction sociale à travers le temps</strong>, ancrée dans une continuité symbolique.</p>
+            <p><strong>1. La nation comme communauté historico-symbolique</strong><br>Benedict Anderson (<em>Imagined Communities</em>, 1983) décrit la nation comme une "communauté imaginée". Cette reconnaissance repose sur des symboles partagés, une mémoire commune, et une langue. Or, ces éléments n’existent que s’ils sont transmis — comme les études sur les peuples autochtones par des universitaires autochtones.</p>
+            <p><strong>2. Le rôle de la transmission</strong><br>La transmission prend diverses formes : langue, rites, valeurs, mémoire. Elle socialise les individus au sein du groupe national. C’est ce qui rend la nation vivante.</p>
+            <p><strong>3. Peuple vs Nation</strong><br>Un peuple existe dans le présent. Une nation s’étend dans le temps. Elle relie les générations passées, présentes et futures.</p>
+            <p><strong>4. Fragilité sans transmission</strong><br>Quand les mécanismes de transmission se brisent (migrations, acculturation), la nation s’effrite. À l’inverse, les diasporas juive ou arménienne montrent qu’une nation peut exister sans État, grâce à la transmission.</p>
+            <p><strong>Conclusion</strong><br>La transmission n’est pas un outil de conservation : c’est l’acte fondateur de la nation. Elle inscrit un peuple dans la durée.</p>
+            <p><strong>Références complémentaires</strong><br>
+            • Anderson, B. (1983). <em>Imagined Communities</em><br>
+            • Safran, W. (1991). <em>Diasporas in Modern Societies</em><br>
+            • Appadurai, A. (1996). <em>Modernity at Large</em><br>
+            • Berdahl, D. (1999). <em>Where the West Ends</em><br>
+            • Renan, E. (1882). <em>Qu’est-ce qu’une nation ?</em>
+            </p>
+          </div>
+        `,
+        asie: () => `
+          <div class="content">
+            <h2>La transmission intergénérationnelle comme fondement socio-anthropologique de la nation</h2>
+            <p><strong>Résumé</strong><br>Dans une perspective socio-anthropologique, la nation ne saurait se réduire à une entité juridique ou territoriale. Elle se constitue comme une communauté historique et symbolique, continuellement (re)produite à travers des mécanismes de transmission intergénérationnelle. Ce processus est à la fois condition de possibilité de l’existence de la nation et moteur de sa pérennité.</p>
+            <p><strong>Introduction</strong><br>Alors que les sciences politiques tendent à définir la nation à partir de critères juridiques, territoriaux ou linguistiques, l’approche socio-anthropologique privilégie une compréhension plus organique et dynamique. Elle conçoit la nation comme une <strong>construction sociale à travers le temps</strong>, ancrée dans une continuité symbolique.</p>
+            <p><strong>1. La nation comme communauté historico-symbolique</strong><br>Benedict Anderson (<em>Imagined Communities</em>, 1983) décrit la nation comme une "communauté imaginée". Cette reconnaissance repose sur des symboles partagés, une mémoire commune, et une langue. Or, ces éléments n’existent que s’ils sont transmis — comme les travaux en IA des laboratoires asiatiques.</p>
+            <p><strong>2. Le rôle de la transmission</strong><br>La transmission prend diverses formes : langue, rites, valeurs, mémoire. Elle socialise les individus au sein du groupe national. C’est ce qui rend la nation vivante.</p>
+            <p><strong>3. Peuple vs Nation</strong><br>Un peuple existe dans le présent. Une nation s’étend dans le temps. Elle relie les générations passées, présentes et futures.</p>
+            <p><strong>4. Fragilité sans transmission</strong><br>Quand les mécanismes de transmission se brisent (migrations, acculturation), la nation s’effrite. À l’inverse, les diasporas juive ou arménienne montrent qu’une nation peut exister sans État, grâce à la transmission.</p>
+            <p><strong>Conclusion</strong><br>La transmission n’est pas un outil de conservation : c’est l’acte fondateur de la nation. Elle inscrit un peuple dans la durée.</p>
+            <p><strong>Références complémentaires</strong><br>
+            • Anderson, B. (1983). <em>Imagined Communities</em><br>
+            • Smith, A.D. (1991). <em>National Identity</em><br>
+            • Connerton, P. (1989). <em>How Societies Remember</em><br>
+            • Assmann, J. (1992). <em>Das kulturelle Gedächtnis</em><br>
+            • Renan, E. (1882). <em>Qu’est-ce qu’une nation ?</em>
+            </p>
+          </div>
+        `,
+        oceanie: () => `
+          <div class="content">
+            <h2>La transmission intergénérationnelle comme fondement socio-anthropologique de la nation</h2>
+            <p><strong>Résumé</strong><br>Dans une perspective socio-anthropologique, la nation ne saurait se réduire à une entité juridique ou territoriale. Elle se constitue comme une communauté historique et symbolique, continuellement (re)produite à travers des mécanismes de transmission intergénérationnelle. Ce processus est à la fois condition de possibilité de l’existence de la nation et moteur de sa pérennité.</p>
+            <p><strong>Introduction</strong><br>Alors que les sciences politiques tendent à définir la nation à partir de critères juridiques, territoriaux ou linguistiques, l’approche socio-anthropologique privilégie une compréhension plus organique et dynamique. Elle conçoit la nation comme une <strong>construction sociale à travers le temps</strong>, ancrée dans une continuité symbolique.</p>
+            <p><strong>1. La nation comme communauté historico-symbolique</strong><br>Benedict Anderson (<em>Imagined Communities</em>, 1983) décrit la nation comme une "communauté imaginée". Cette reconnaissance repose sur des symboles partagés, une mémoire commune, et une langue. Or, ces éléments n’existent que s’ils sont transmis — comme les recherches sur le <em>mātauranga Māori</em>.</p>
+            <p><strong>2. Le rôle de la transmission</strong><br>La transmission prend diverses formes : langue, rites, valeurs, mémoire. Elle socialise les individus au sein du groupe national. C’est ce qui rend la nation vivante.</p>
+            <p><strong>3. Peuple vs Nation</strong><br>Un peuple existe dans le présent. Une nation s’étend dans le temps. Elle relie les générations passées, présentes et futures.</p>
+            <p><strong>4. Fragilité sans transmission</strong><br>Quand les mécanismes de transmission se brisent (migrations, acculturation), la nation s’effrite. À l’inverse, les diasporas juive ou arménienne montrent qu’une nation peut exister sans État, grâce à la transmission.</p>
+            <p><strong>Conclusion</strong><br>La transmission n’est pas un outil de conservation : c’est l’acte fondateur de la nation. Elle inscrit un peuple dans la durée.</p>
+            <p><strong>Références complémentaires</strong><br>
+            • Anderson, B. (1983). <em>Imagined Communities</em><br>
+            • Halbwachs, M. (1950). <em>La Mémoire collective</em><br>
+            • Appadurai, A. (1996). <em>Modernity at Large</em><br>
+            • Safran, W. (1991). <em>Diasporas in Modern Societies</em><br>
+            • Renan, E. (1882). <em>Qu’est-ce qu’une nation ?</em>
+            </p>
+          </div>
+        `
+      },
+      mathematicien: {
+        afrique: () => `
+          <div class="content">
+            <h2>Une axiomatique de la nation : la transmission comme opérateur de clôture temporelle (Afrique)</h2>
+            <p><strong>Définition :</strong> Soit \( P \) un peuple, \( \\mathcal{T} \) l’opérateur de transmission intergénérationnelle.</p>
+            <p><strong>Axiome 1 :</strong> \( \\forall n, \\mathcal{T}(G_n) \\neq \\emptyset \\implies \\) lien sémantique entre \( G_n \) et \( G_{n+1} \).</p>
+            <p><strong>Axiome 2 :</strong> Une nation \( N \) vérifie \( \\bigcap_{n} \\mathcal{T}^n(P) \\neq \\emptyset \) (noyau culturel stable).</p>
+            <p><strong>Théorème :</strong> \( P \\xrightarrow{\\mathcal{T}} N \\iff \\mathcal{T} \\) est convergent, continu, non dégénéré.</p>
+            <p><strong>Exemple africain :</strong> Les récits oraux assurent une transmission fidèle malgré l’absence d’écriture — \( \\mathcal{T} \) est non écrit mais robuste, comme les motifs du kente.</p>
+            <p><strong>Conclusion :</strong> La nation est la clôture transitive de \( P \) sous \( \\mathcal{T} \). Sans transmission, l’espace est disconnexe.</p>
+          </div>
+        `,
+        europe: () => `
+          <div class="content">
+            <h2>Une axiomatique de la nation : la transmission comme opérateur de clôture temporelle (Europe)</h2>
+            <p><strong>Définition :</strong> Soit \( P \) un peuple, \( \\mathcal{T} \) l’opérateur de transmission intergénérationnelle.</p>
+            <p><strong>Axiome 1 :</strong> \( \\forall n, \\mathcal{T}(G_n) \\neq \\emptyset \\implies \\) lien sémantique entre \( G_n \) et \( G_{n+1} \).</p>
+            <p><strong>Axiome 2 :</strong> Une nation \( N \) vérifie \( \\bigcap_{n} \\mathcal{T}^n(P) \\neq \\emptyset \) (noyau culturel stable).</p>
+            <p><strong>Théorème :</strong> \( P \\xrightarrow{\\mathcal{T}} N \\iff \\mathcal{T} \\) est convergent, continu, non dégénéré.</p>
+            <p><strong>Exemple européen :</strong> L’école standardise \( \\mathcal{T} \), comme Bourbaki a formalisé les mathématiques. Risque : uniformisation au détriment de la diversité.</p>
+            <p><strong>Conclusion :</strong> La nation est la clôture transitive de \( P \) sous \( \\mathcal{T} \). Sans transmission, l’espace est disconnexe.</p>
+          </div>
+        `,
+        ameriques: () => `
+          <div class="content">
+            <h2>Une axiomatique de la nation : la transmission comme opérateur de clôture temporelle (Amériques)</h2>
+            <p><strong>Définition :</strong> Soit \( P \) un peuple, \( \\mathcal{T} \) l’opérateur de transmission intergénérationnelle.</p>
+            <p><strong>Axiome 1 :</strong> \( \\forall n, \\mathcal{T}(G_n) \\neq \\emptyset \\implies \\) lien sémantique entre \( G_n \) et \( G_{n+1} \).</p>
+            <p><strong>Axiome 2 :</strong> Une nation \( N \) vérifie \( \\bigcap_{n} \\mathcal{T}^n(P) \\neq \\emptyset \) (noyau culturel stable).</p>
+            <p><strong>Théorème :</strong> \( P \\xrightarrow{\\mathcal{T}} N \\iff \\mathcal{T} \\) est convergent, continu, non dégénéré.</p>
+            <p><strong>Exemple amérindien :</strong> \( \\mathcal{T} \) a été interrompu (colonisation), puis réactivé (résurgence culturelle). Opérateur non continu, mais convergent.</p>
+            <p><strong>Conclusion :</strong> La nation est la clôture transitive de \( P \) sous \( \\mathcal{T} \). Sans transmission, l’espace est disconnexe.</p>
+          </div>
+        `,
+        asie: () => `
+          <div class="content">
+            <h2>Une axiomatique de la nation : la transmission comme opérateur de clôture temporelle (Asie)</h2>
+            <p><strong>Définition :</strong> Soit \( P \) un peuple, \( \\mathcal{T} \) l’opérateur de transmission intergénérationnelle.</p>
+            <p><strong>Axiome 1 :</strong> \( \\forall n, \\mathcal{T}(G_n) \\neq \\emptyset \\implies \\) lien sémantique entre \( G_n \) et \( G_{n+1} \).</p>
+            <p><strong>Axiome 2 :</strong> Une nation \( N \) vérifie \( \\bigcap_{n} \\mathcal{T}^n(P) \\neq \\emptyset \) (noyau culturel stable).</p>
+            <p><strong>Théorème :</strong> \( P \\xrightarrow{\\mathcal{T}} N \\iff \\mathcal{T} \\) est convergent, continu, non dégénéré.</p>
+            <p><strong>Exemple asiatique :</strong> La lignée familiale rend \( \\mathcal{T} \) hiérarchique et stable, comme les preuves formelles de la logique bouddhiste.</p>
+            <p><strong>Conclusion :</strong> La nation est la clôture transitive de \( P \) sous \( \\mathcal{T} \). Sans transmission, l’espace est disconnexe.</p>
+          </div>
+        `,
+        oceanie: () => `
+          <div class="content">
+            <h2>Une axiomatique de la nation : la transmission comme opérateur de clôture temporelle (Océanie)</h2>
+            <p><strong>Définition :</strong> Soit \( P \) un peuple, \( \\mathcal{T} \) l’opérateur de transmission intergénérationnelle.</p>
+            <p><strong>Axiome 1 :</strong> \( \\forall n, \\mathcal{T}(G_n) \\neq \\emptyset \\implies \\) lien sémantique entre \( G_n \) et \( G_{n+1} \).</p>
+            <p><strong>Axiome 2 :</strong> Une nation \( N \) vérifie \( \\bigcap_{n} \\mathcal{T}^n(P) \\neq \\emptyset \) (noyau culturel stable).</p>
+            <p><strong>Théorème :</strong> \( P \\xrightarrow{\\mathcal{T}} N \\iff \\mathcal{T} \\) est convergent, continu, non dégénéré.</p>
+            <p><strong>Exemple océanien :</strong> Le « Dreamtime » structure \( \\mathcal{T} \) comme un réseau topologique sacré. La navigation polynésienne est une géométrie empirique.</p>
+            <p><strong>Conclusion :</strong> La nation est la clôture transitive de \( P \) sous \( \\mathcal{T} \). Sans transmission, l’espace est disconnexe.</p>
+          </div>
+        `
+      }
+    };
+
+    ageSelect.addEventListener('change', () => {
+      if (ageSelect.value) {
+        continentSelect.disabled = false;
+        continentSelect.value = "";
+        contentContainer.innerHTML = `
+          <div class="info-message">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 16v-4M12 8h.01"></path>
+            </svg>
+            Veuillez maintenant sélectionner votre continent pour découvrir le contenu.
+          </div>
+        `;
+      } else {
+        continentSelect.disabled = true;
+        continentSelect.value = "";
+        contentContainer.innerHTML = '';
+      }
+    });
+
+    continentSelect.addEventListener('change', () => {
+      const age = ageSelect.value;
+      const continent = continentSelect.value;
+
+      if (age && continent) {
+        if (contentMap[age] && typeof contentMap[age][continent] === 'function') {
+          contentContainer.innerHTML = contentMap[age][continent]();
+        } else if (contentMap[age] && contentMap[age][continent]) {
+          contentContainer.innerHTML = contentMap[age][continent];
+        } else {
+          contentContainer.innerHTML = `<div class="content"><p>Contenu non disponible.</p></div>`;
+        }
+      } else {
+        contentContainer.innerHTML = '';
+      }
+    });
+  </script>
+
+</body>
+</html>
